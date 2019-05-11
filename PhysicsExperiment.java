@@ -1,7 +1,7 @@
 /**
  * Physics Experiment
- * Author: Your Name and Carolyn Yao
- * Does this compile or finish running within 5 seconds? Y/N
+ * Author: Timothy Lei and Carolyn Yao
+ * Does this compile or finish running within 5 seconds? Yes
  */
 
 /**
@@ -37,8 +37,38 @@ public class PhysicsExperiment {
     // in the table in the right places based on the return description
     int[][] scheduleTable = new int[numStudents + 1][numSteps + 1];
 
-    // Your code goes here
+    int step = 1;
+	int begin = 1;
+	int end = 0;
 
+	while (step <= numSteps) {
+		int student = 0;
+		int maxConsecutive1 = 0;
+		for (int r = 1; r <= numStudents; r++) {
+			int consecutive1 = 0;
+
+			for (int c = begin; c <= numSteps; c++) {
+				if (signUpTable[r][c] == 1)
+					consecutive1++;
+				else
+					break;
+			}
+
+			if (consecutive1 > maxConsecutive1) {
+				maxConsecutive1 = consecutive1;
+				student = r;
+			}
+		}
+
+		step += maxConsecutive1;
+		end = end + maxConsecutive1;
+
+		for (int i = begin; i <= end; i++) {
+			scheduleTable[student][i] = signUpTable[student][i];
+		}
+		begin = end + 1;
+
+	}
     return scheduleTable;
   }
 
